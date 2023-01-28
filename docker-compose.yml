@@ -1,0 +1,21 @@
+version: '2.7'
+
+services:
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    tty: true
+    volumes:
+      - ./app:/app
+    working_dir: /app
+    depends_on:
+      - selenium_chrome
+    container_name: python-selenium
+  selenium_chrome:
+    image: selenium/standalone-chrome
+    ports:
+      - 4444:4444
+    environment:
+      - VNC_NO_PASSWORD=1
+    restart: always
